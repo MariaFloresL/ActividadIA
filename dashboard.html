@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard | ¿IA o Humano?</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero card">
+      <div>
+        <img class="event-header" src="encabezado.png" alt="¿IA o Humano? Mundial Social 2026 · INNOVATECNM · Etapa Local" />
+        <p class="tag">Dashboard docente · Tec Lerdo</p>
+        <h1>Resultados</h1>
+        <p class="subtitle">Resumen anónimo de respuestas de la actividad para estudiantes de ingeniería.</p>
+      </div>
+      <div class="score-box">
+        <span id="totalParticipants">0</span>
+        <small>participantes</small>
+      </div>
+    </section>
+
+    <section class="grid-stats">
+      <article class="card stat"><span id="avgScore">0%</span><small>promedio de aciertos</small></article>
+      <article class="card stat"><span id="bestQuestion">-</span><small>pregunta más acertada</small></article>
+      <article class="card stat"><span id="hardQuestion">-</span><small>pregunta más difícil</small></article>
+    </section>
+
+    <section class="card">
+      <div class="dashboard-actions">
+        <h2>Detalle por pregunta</h2>
+        <button id="clearBtn" class="danger-btn">Borrar resultados</button>
+      </div>
+      <div id="resultsTable"></div>
+    </section>
+  </main>
+
+  <script src="questions.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
