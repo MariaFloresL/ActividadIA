@@ -1,3 +1,17 @@
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCtYm2H8vcoENDFzavbBHm48xzmPxrVCMY",
+  authDomain: "ia-o-humano.firebaseapp.com",
+  projectId: "ia-o-humano",
+  storageBucket: "ia-o-humano.firebasestorage.app",
+  messagingSenderId: "957590405837",
+  appId: "1:957590405837:web:2c827d9eb4536c15355f84"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 const startCard = document.getElementById('startCard');
 const quizCard = document.getElementById('quizCard');
 const finalCard = document.getElementById('finalCard');
@@ -73,15 +87,13 @@ function finishQuiz() {
   finalCard.classList.remove('hidden');
   const percent = Math.round((score / QUESTIONS.length) * 100);
   finalScore.textContent = `${score}/${QUESTIONS.length} aciertos (${percent}%)`;
-
-  const results = JSON.parse(localStorage.getItem('iaHumanoResults') || '[]');
-  results.push({
-    date: new Date().toISOString(),
-    score,
-    total: QUESTIONS.length,
-    answers
-  });
-  localStorage.setItem('iaHumanoResults', JSON.stringify(results));
+   addDoc(collection(db, "resultados"), {
+  date: new Date().toISOString(),
+  score,
+  total: QUESTIONS.length,
+  answers
+});
+ 
 }
 
 function resetQuiz() {
