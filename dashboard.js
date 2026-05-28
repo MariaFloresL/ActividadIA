@@ -15,20 +15,39 @@ const db = getFirestore(app);
 
 const resultadosDiv = document.getElementById("resultados");
 
-onSnapshot(collection(db,"resultados"),(snapshot)=>{
- let html = "<ul>";
+onSnapshot(collection(db, "resultados"), (snapshot) => {
 
- snapshot.forEach(doc=>{
-   const data = doc.data();
+  let total = 0;
+  let aciertos = 0;
 
-   html += `
-   <li>
-     ${data.pregunta} → <strong>${data.respuesta}</strong>
-   </li>
-   `;
- });
+  let html = `
+    <h2>Total participantes: ${snapshot.size}</h2>
+    <ul>
+  `;
 
- html += "</ul>";
+  snapshot.forEach(doc => {
 
- resultadosDiv.innerHTML = html;
+    const data = doc.data();
+
+    total += data.total;
+    aciertos += data.score;
+
+    html += `
+      <li>
+        <strong>Puntaje:</strong> ${data.score}/${data.total}
+      </li>
+    `;
+  });
+
+  html += "</ul>";
+
+  if(snapshot.size > 0){
+    const promedio = Math.round((aciertos / total) * 100);
+
+    html += `
+      <h3>Promedio general: ${promedio}%</h3>
+    `;
+  }
+
+  resultadosDiv.innerHTML = html;
 });
